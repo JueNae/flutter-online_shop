@@ -96,7 +96,7 @@ class GetFlickrJsonData extends AsyncTask<String, Void, List<Photo>> implements 
 
         return Uri.parse(mBaseURL).buildUpon()
                 .appendQueryParameter("tags", searchCriteria)
-                .appendQueryParameter("tagsmode", matchAll ? "ALL" : "ANY")
+                .appendQueryParameter("tagmode", matchAll ? "ALL" : "ANY")
                 .appendQueryParameter("lang", lang)
                 .appendQueryParameter("format", "json")
                 .appendQueryParameter("nojsoncallback", "1")

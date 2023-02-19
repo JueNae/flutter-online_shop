@@ -40,16 +40,16 @@ public class PhotoDetailActivity extends BaseActivity {
         if(photo != null){
             TextView photoTitle = (TextView) findViewById(R.id.photo_title);
             Resources resources = getResources();
-            String textTitle = resources.getString(R.string.photo_title_text, photo.getTitle());
-            photoTitle.setText(textTitle);
-//            photoTitle.setText("Title" + photo.getTitle());
+            String text = resources.getString(R.string.photo_title_text, photo.getTitle());
+            photoTitle.setText(text);
+//            photoTitle.setText("Title: " + photo.getTitle());
 
             TextView photoTags = (TextView) findViewById(R.id.photo_tags);
             photoTags.setText(resources.getString(R.string.photo_tags_text, photo.getTags()));
-//            photoTitle.setText("Tags" + photo.getTags());
+//            photoTags.setText("Tags: " + photo.getTags());
 
             TextView photoAuthor = (TextView) findViewById(R.id.photo_author);
-            photoTitle.setText("Title" + photo.getAuthor());
+            photoAuthor.setText(photo.getAuthor());
 
             ImageView photoImage = (ImageView) findViewById(R.id.photo_image);
 

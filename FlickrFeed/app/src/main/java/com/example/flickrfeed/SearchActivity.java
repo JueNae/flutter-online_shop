@@ -74,9 +74,7 @@ public class SearchActivity extends BaseActivity {
             }
         });
 
-        Log.d(TAG, "onCreateOptionsMenu: returned" + true);
-
-        // for test
+        Log.d(TAG, "onCreateOptionsMenu: returned " + true);
         return true;
     }
 }
