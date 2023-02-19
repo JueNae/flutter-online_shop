@@ -44,6 +44,7 @@ public class SearchActivity extends BaseActivity {
 
         Log.d(TAG, "onCreateOptionsMenu: returned" + true);
 
+        // for test
         return true;
     }
 }
