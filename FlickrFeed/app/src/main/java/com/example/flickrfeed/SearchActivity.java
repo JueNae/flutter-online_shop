@@ -2,9 +2,12 @@ package com.example.flickrfeed;
 
 import android.app.SearchManager;
 import android.app.SearchableInfo;
+import androidx.appcompat.widget.SearchView;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 
@@ -36,11 +39,40 @@ public class SearchActivity extends BaseActivity {
         mSearchView = (SearchView) menu.findItem(R.id.app_bar_search).getActionView();
         SearchableInfo searchableInfo = searchManager.getSearchableInfo(getComponentName());
         mSearchView.setSearchableInfo(searchableInfo);
-        Log.d(TAG, "onCreateOptionsMenu: " + getComponentName().toString());
-        Log.d(TAG, "onCreateOptionsMenu: hint is " + mSearchView.getQueryHint());
-        Log.d(TAG, "onCreateOptionsMenu: seachable info is " + searchableInfo.toString());
+//        Log.d(TAG, "onCreateOptionsMenu: " + getComponentName().toString());
+//        Log.d(TAG, "onCreateOptionsMenu: hint is " + mSearchView.getQueryHint());
+//        Log.d(TAG, "onCreateOptionsMenu: searchable info is " + searchableInfo.toString());
 
-        mSearchView.setIconified(true);
+        mSearchView.setIconified(false);
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d(TAG, "onQueryTextSubmit: called");
+
+                //to store data
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                sharedPreferences.edit().putString(FLICKR_QUERY, query).apply();
+
+                mSearchView.clearFocus();
+                finish();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });
+
+        mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                finish();
+                return false;
+            }
+        });
 
         Log.d(TAG, "onCreateOptionsMenu: returned" + true);
 

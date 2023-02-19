@@ -26,7 +26,7 @@
             android:label="@string/title_activity_search"
             android:parentActivityName=".MainActivity">
             <meta-data
-                android:name="android.support."
+                android:name="android.app.default_searchable"
                 android:value="com.example.flickrfeed.MainActivity"/>
             <meta-data android:name="android.app.appsearch"
                 android:resource="@drawable/search"/>
