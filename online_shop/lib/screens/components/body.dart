@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:online_shop/constants.dart';
+import 'package:online_shop/models/Product.dart';
+import 'package:online_shop/screens/components/categories.dart';
+import 'package:online_shop/screens/components/item_cart.dart';
+import 'package:online_shop/screens/details/components/details_screen.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -7,65 +11,43 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
+          child: Text("Women",
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5
+                  ?.copyWith(fontWeight: FontWeight.bold)),
+        ),
+        Categories(),
+        //   ItemCard(),
+        Expanded(
+          child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
-            child: Text("Women",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5
-                    ?.copyWith(fontWeight: FontWeight.bold)),
-          ),
-          Categories(),
-        ]);
-  }
-}
-
-class Categories extends StatefulWidget {
-  const Categories({Key? key}) : super(key: key);
-
-  @override
-  State<Categories> createState() => _CategoriesState();
-}
-
-class _CategoriesState extends State<Categories> {
-  List<String> categories = ["Hand bag", "Jewellery", "Footwear", "Dresses"];
-
-  // by default our first item will be selected
-  int selectedIndex = 0;
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-        height: 25,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: categories.length,
-          itemBuilder: (contex, index) => buildCategory(index),
-        ));
-  }
-
-  Widget buildCategory(int index) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            categories[index],
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: kTextColor,
+            child: GridView.builder(
+              itemCount: products.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: kDefaultPaddin,
+                crossAxisSpacing: kDefaultPaddin,
+                childAspectRatio: 0.75, //to make a gap height
+              ),
+              itemBuilder: (context, index) => ItemCard(
+                product: products[index],
+                press: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailsScreen(
+                        product: products[index],
+                      ),
+                    )),
+              ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(top: kDefaultPaddin / 4),
-            height: 2,
-            width: 30,
-            color: Colors.black,
-          )
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
