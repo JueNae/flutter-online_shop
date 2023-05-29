@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:online_shop/constants.dart';
 import 'package:online_shop/models/Product.dart';
+import 'package:online_shop/screens/details/components/add_to_cart.dart';
+import 'package:online_shop/screens/details/components/color_and_size.dart';
+import 'package:online_shop/screens/details/components/counter_with_fav.dart';
+import 'package:online_shop/screens/details/components/description.dart';
 import 'package:online_shop/screens/details/components/product_title_with_image.dart';
 
 class Body extends StatelessWidget {
@@ -35,36 +39,25 @@ class Body extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          Column(
-                            children: [
-                              Text("color"),
-
-                              // create circle dot
-                              Container(
-                                margin: EdgeInsets.only(
-                                  top: kDefaultPaddin / 4,
-                                  right: kDefaultPaddin / 2,
-                                ),
-                                padding: EdgeInsets.all(2.5),
-                                height: 24,
-                                width: 24,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      )
+                      ColorAndSize(
+                        product: product,
+                      ),
+                      SizedBox(
+                        height: kDefaultPaddin,
+                      ),
+                      Description(
+                        product: product,
+                      ),
+                      SizedBox(
+                        height: kDefaultPaddin / 2,
+                      ),
+                      CounterWithFavBtn(),
+                      SizedBox(
+                        height: kDefaultPaddin / 2,
+                      ),
+                      AddToCart(
+                        product: product,
+                      ),
                     ],
                   ),
                 ),
@@ -75,6 +68,39 @@ class Body extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class ColorDot extends StatelessWidget {
+  final Color color;
+  final bool isSelected;
+
+  const ColorDot({Key? key, required this.color, this.isSelected = false})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(
+        top: kDefaultPaddin / 4,
+        right: kDefaultPaddin / 2,
+      ),
+      padding: EdgeInsets.all(2.5),
+      height: 24,
+      width: 24,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: isSelected ? color : Colors.transparent,
+        ),
+        shape: BoxShape.circle,
+      ),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+        ),
       ),
     );
   }

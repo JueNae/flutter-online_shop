@@ -16,7 +16,7 @@ class ProductTitleWithImage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            "Arimit Hand Bag",
+            "Nike Shoes",
             style: TextStyle(
               color: Colors.white,
             ),
@@ -52,9 +52,12 @@ class ProductTitleWithImage extends StatelessWidget {
                 width: kDefaultPaddin,
               ),
               Expanded(
-                child: Image.asset(
-                  product.image,
-                  fit: BoxFit.fill,
+                child: Hero(
+                  tag: "${product.id}",
+                  child: Image.asset(
+                    product.image,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ],
